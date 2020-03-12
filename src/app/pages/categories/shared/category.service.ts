@@ -26,12 +26,14 @@ import { Category } from './category.model';
     return this.http.get(url).pipe(
       catchError(this.handleError),
       map(this.jsonDataToCategory)
+    )
  }
 
  create(category: Category): Observable<Category> {
    return this.http.post(this.apiPath, category).pipe(
      catchError(this.handleError),
      map(this.jsonDataToCategory)
+    )
  }
 
  update(category: Category): Observable<Category> {
@@ -39,6 +41,7 @@ import { Category } from './category.model';
      return this.http.put(url, category).pipe(
        catchError(this.handleError),
        map(() => category)
+     )
  }
 
  delete(id: number): Observable<any>{
@@ -46,6 +49,7 @@ import { Category } from './category.model';
    return this.http.delete(url).pipe(
      catchError(this.handleError),
      map(() => null)
+   )
  }
 
  // PRIVATE METHOD
