@@ -108,7 +108,7 @@ submitForm() {
              error => this.actionsForError(error)
          )
   }
-  
+
   private actionsForUpdate(category: Category) {
     toastr.info("Solicitação Atualizada com sucesso!");
 
@@ -120,16 +120,6 @@ submitForm() {
         )
   }
 
-  private actionsForSuccess(category: Category) {
-    toastr.success("Solicitação processada com sucesso!");
-
-    // redirect/reload component page
-    this.router
-        .navigateByUrl("categories", {skipLocationChange: true})
-        .then(
-          () => this.router.navigate(["categories", category.id, "edit"])
-        )
-  }
   private actionsForSuccess(category: Category) {
     toastr.success("Solicitação processada com sucesso!");
 
