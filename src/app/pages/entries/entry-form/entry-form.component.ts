@@ -90,7 +90,7 @@ get typeOptions(): Array<any> {
 
   private loadCategories() {
     this.categoryService.getAll().subscribe(
-      categories => this.categories = categories;
+      categories => this.categories = categories
     )
   }
 

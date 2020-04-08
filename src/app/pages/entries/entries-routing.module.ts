@@ -8,7 +8,7 @@ const routes: Routes = [
 
   {path: '', component: EntryListComponent},
   {path: 'new', component: EntryFormComponent},
-  {path: ':id/edit', component: EntryFormComponent},
+  {path: ':id/edit', component: EntryFormComponent}
 
 ];
 

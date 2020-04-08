@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError, flatMap } from 'rxjs/operators';
 
+import { CategoryService } from '../../categories/shared/category.service';
+
 import { Entry } from './entry.model';
 
  @Injectable({
@@ -12,7 +14,7 @@ import { Entry } from './entry.model';
 
  private apiPath: string = "api/entries";
 
- constructor(private http: HttpClient) { }
+ constructor(private http: HttpClient, private categoryService: CategoryService) { }
 
  getAll(): Observable<Entry[]> {
     return this.http.get(this.apiPath).pipe(
@@ -30,18 +32,33 @@ import { Entry } from './entry.model';
  }
 
  create(entry: Entry): Observable<Entry> {
-   return this.http.post(this.apiPath, entry).pipe(
-     catchError(this.handleError),
-     map(this.jsonDataToEntry)
-    )
+
+   return this.categoryService.getById(entry.categoryId).pipe(
+     flatMap(category => {
+       entry.category = category;
+
+       return this.http.post(this.apiPath, entry).pipe(
+         catchError(this.handleError),
+         map(this.jsonDataToEntry)
+        )
+     })
+   )
  }
 
  update(entry: Entry): Observable<Entry> {
      const url = `${this.apiPath}/${entry.id}`;
-     return this.http.put(url, entry).pipe(
-       catchError(this.handleError),
-       map(() => entry)
+
+     return this.categoryService.getById(entry.categoryId).pipe(
+       flatMap(category => {
+         entry.category = category;
+
+         return this.http.put(url, entry).pipe(
+           catchError(this.handleError),
+           map(() => entry)
+          )
+       })
      )
+
  }
 
  delete(id: number): Observable<any>{
@@ -65,7 +82,8 @@ import { Entry } from './entry.model';
  }
 
  private jsonDataToEntry(jsonData: any): Entry {
-   return Object.assign(new Entry(), jsonData);
+   //return Object.assign(new Entry(), jsonData);
+   return jsonData as Entry;
  }
 
  private handleError(error: any): Observable<any>{
@@ -74,3 +92,45 @@ import { Entry } from './entry.model';
  }
 
 }
+
+/*
+// Se seu BACK END se comporta desta forma, não seve fazer alteração no
+// Object.assign(new Entry(), jsonData);
+
+create(entry: Entry): Observable<Entry> {
+  return this.http.post(this.apiPath, entry).pipe(
+    catchError(this.handleError),
+    map(this.jsonDataToEntry)
+   )
+}
+
+update(entry: Entry): Observable<Entry> {
+    const url = `${this.apiPath}/${entry.id}`;
+    return this.http.put(url, entry).pipe(
+      catchError(this.handleError),
+      map(() => entry)
+    )
+}
+
+
+entryService.getById(2);
+
+"Se seu BACK END se comporta desta forma, não seve fazer alteração no Object.assign(new Entry(), jsonData);"
+jsonData = {
+
+    id: 2,
+    name: "aluguel",
+    date: "06/04/2020",
+    paid: true,
+    categoryId: 1,
+    category: {
+                id: 1,
+                name: "moradia",
+                description: "Qualquer descrição para esta categoria"
+
+             }
+}
+
+  Object.assign(new Entry(), jsonData);
+
+*/
