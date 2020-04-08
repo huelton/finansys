@@ -82,8 +82,7 @@ import { Entry } from './entry.model';
  }
 
  private jsonDataToEntry(jsonData: any): Entry {
-   //return Object.assign(new Entry(), jsonData);
-   return jsonData as Entry;
+   return Object.assign(new Entry(), jsonData);
  }
 
  private handleError(error: any): Observable<any>{
