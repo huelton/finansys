@@ -115,18 +115,20 @@ submitForm() {
   protected actionsForUpdate(resource: T) {
     toastr.info("Solicitação Atualizada com sucesso!");
 
+    const baseComponentPath: string = this.route.snapshot.parent.url[0].path;
+
     // redirect/reload component page
     this.router
-        .navigateByUrl("categories", {skipLocationChange: true})
+        .navigateByUrl(baseComponentPath, {skipLocationChange: true})
         .then(
-          () => this.router.navigate(["categories", resource.id, "edit"])
+          () => this.router.navigate([baseComponentPath, resource.id, "edit"])
         )
   }
 
   protected actionsForSuccess(resource: T) {
     toastr.success("Solicitação processada com sucesso!");
 
-    const baseComponentPath: string = this.router.snapshot.parent.url[0].path;
+    const baseComponentPath: string = this.route.snapshot.parent.url[0].path;
 
     // redirect/reload component page
     this.router
@@ -147,5 +149,5 @@ submitForm() {
 
   protected abstract buildResourceForm(): void;
 
-  
+
 }
