@@ -32,7 +32,7 @@ export class FormFieldErrorComponent implements OnInit {
     if(this.formControl.errors.required)
       return "dado obrigatório";
     else if(this.formControl.errors.email)
-      return "formato de email Invalido";
+      return "formato de email invalido";
     else if(this.formControl.errors.minlength){
       const requiredLength = this.formControl.errors.minlength.requiredLength;
       return `deve ter no mínimo ${ requiredLength } caracteres`;
