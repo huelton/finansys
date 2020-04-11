@@ -7,6 +7,7 @@ import { Entry } from '../../entries/shared/entry.model';
 import { EntryService } from '../../entries/shared/entry.service';
 
 import currencyFormatter from 'currency-formatter';
+import * as numeral from 'numeral';
 
 @Component({
   selector: 'app-reports',
