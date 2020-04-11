@@ -22,6 +22,14 @@ page-title="Relatorio de Receitas e Despesas"
             <option value="2">Fevereiro</option>
             <option value="3">Março</option>
             <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>            
          </select>
        </div>
 
@@ -58,7 +66,7 @@ page-title="Relatorio de Receitas e Despesas"
       TOTAL RECEITAS
     </div>
     <div class="card-body">
-      <h3 class="card-title">1500</h3>
+      <h3 class="card-title">{{ revenueTotal }}</h3>
     </div>
   </div>
 
@@ -67,7 +75,7 @@ page-title="Relatorio de Receitas e Despesas"
       TOTAL DESPESAS
     </div>
     <div class="card-body">
-      <h3 class="card-title">500</h3>
+      <h3 class="card-title">{{ expenseTotal }}</h3>
     </div>
   </div>
 
@@ -76,7 +84,7 @@ page-title="Relatorio de Receitas e Despesas"
       SALDO
     </div>
     <div class="card-body">
-      <h3 class="card-title">1000</h3>
+      <h3 class="card-title">{{ balance }}</h3>
     </div>
   </div>
 
@@ -86,9 +94,9 @@ page-title="Relatorio de Receitas e Despesas"
 
 <div class="row mt-5 mb-4">
    <div class="col-md-6">
-     GRAFICOS DE RECEITA
+     <p-chart type="bar" [data]="revenueChartTotal" [options]="chartOptions"></p-chart>
    </div>
    <div class="col-md-6">
-     GRAFICOS DE DESPESAS
+     <p-chart type="bar" [data]="expenseChartTotal" [options]="chartOptions"></p-chart>
    </div>
 </div>
